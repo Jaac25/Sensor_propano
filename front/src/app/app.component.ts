@@ -16,9 +16,9 @@ export class AppComponent {
 
   public chartLabels = ["1", "2", "3", "4", "5", "6","7"]
 
-  public sensorData: {value: number, date: Date, style: string}[] = []
+  public sensorData: {value: any, date: any, style: string}[] = []
 
-  public dateDanger: Date = new Date()
+  public dateDanger: {value: number, date: Date} = {value: 0, date: new Date()}
 
   public lineChartData: ChartConfiguration["data"] = {
     labels: this.chartLabels,
@@ -75,6 +75,7 @@ export class AppComponent {
 
   getDataSensor = () => {
     this.indexService.getDataSensor().subscribe(data => {
+      this.sensorData.length = 0
       let i = this.chartLabels?.length
       data.forEach(val => {
         i = i + 1
@@ -83,10 +84,13 @@ export class AppComponent {
         this.lineChartData?.labels?.push(i);
         if (val.value >= 500){
           this.isDangerous = true
-          this.dateDanger = val.date
+          this.dateDanger = {value: val.value, date: val.date}
         }
         this.chart?.update()
+        let list = document.getElementById("list")
+        list?.scroll({top: 24})
       })
+      this.sensorData.push({value: "", date: "", style:  ""})
     })
   }
 

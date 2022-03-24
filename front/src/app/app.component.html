@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="items-center justify-center border-4 w-1/4 max-h-1/4 overflow-auto h-96">
-            <div class="overflow-auto border" *ngFor="let data of sensorData">
+            <div class="overflow-y-auto border scroll-smooth" id="list" *ngFor="let data of sensorData">
                 <li class="flex flex-row gap-4">
                     <h4 class={{data.style}}>{{data.value}}:</h4>
                     <h4 class={{data.style}}>{{data.date}}</h4>
@@ -41,7 +41,7 @@
     <div class="w-full h-max flex flex-col text-3xl items-center justify-center">
         <h1 class="text-9xl text-red-500">Alerta</h1>
         <h5 class="text-3xl text-red-600">Escape de gas, corre!!!</h5>
-        <h5 class="text-3xl text-red-600">{{dateDanger}}</h5>
+        <h5 class="text-3xl text-red-600">{{dateDanger.value}}, {{dateDanger.date}}</h5>
         <button class="bg-red-500 hover:bg-red-700 rounded p-2 text-white mt-10" (click)="isDangerous = false; automaticChart = false">Aceptar</button>
         <iframe src="./assets/Sirena.mp3" style="display: none;"></iframe>
     </div>
